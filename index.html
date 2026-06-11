@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guitar Scale Trainer — C Major</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Guitar Scale Trainer</h1>
+  <p class="subtitle" id="subtitle">C Major &mdash; CAGED System</p>
+
+  <div class="key-buttons" id="keyButtons"></div>
+
+  <div class="scale-buttons" id="scaleButtons"></div>
+
+  <div class="position-buttons" id="posButtons"></div>
+
+  <div class="display-buttons" id="displayButtons"></div>
+
+  <div class="penta-buttons" id="pentaButtons"></div>
+
+  <div class="fretboard-wrap">
+    <svg id="fretboard"></svg>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot root"></div> Root (<span id="rootLabel">C</span>)</div>
+    <div class="legend-item"><div class="legend-dot scale"></div> Scale note</div>
+    <div class="legend-item legend-penta" id="legendPenta" style="display:none"><div class="legend-dot penta-root"></div> Penta root</div>
+    <div class="legend-item legend-penta" id="legendPenta2" style="display:none"><div class="legend-dot penta"></div> Pentatonic</div>
+  </div>
+
+  <div class="pos-info" id="posInfo"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

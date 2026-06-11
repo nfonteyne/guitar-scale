@@ -40,7 +40,3 @@ npx serve .
 ```
 
 Open the URL printed in the terminal (usually [http://localhost:3000](http://localhost:3000)).
-
-### No server
-
-You can also open `index.html` directly in a browser, but note that ES modules require a server — use one of the options above for the app to work correctly.

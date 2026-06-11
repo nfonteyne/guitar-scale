@@ -1,7 +1,8 @@
 FROM nginx:alpine
 
-COPY index.html /usr/share/nginx/html/
-COPY style.css  /usr/share/nginx/html/
-COPY js/        /usr/share/nginx/html/js/
+COPY index.html  /usr/share/nginx/html/
+COPY style.css   /usr/share/nginx/html/
+COPY favicon.svg /usr/share/nginx/html/
+COPY js/         /usr/share/nginx/html/js/
 
 EXPOSE 80

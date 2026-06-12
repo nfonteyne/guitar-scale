@@ -1,6 +1,13 @@
 services:
   guitar-scale:
     build: .
-    ports:
-      - "8080:80"
+    container_name: guitar-scale
+    expose:
+      - 80
+    networks:
+      - traefik-proxy
     restart: unless-stopped
+
+networks:
+  traefik-proxy:
+    external: true

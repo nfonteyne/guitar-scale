@@ -1,4 +1,4 @@
-import { KEYS, MINOR_KEYS, getPositions, getMinorPositions, getAllNotes, getPentaSemitones } from './data.js';
+import { KEYS, MINOR_KEYS, getPositions, getMinorPositions, getAllNotes, getPentaSemitones, getChordSemitones } from './data.js';
 import { buildFretboard, paintNotes } from './fretboard.js';
 
 // ── State ─────────────────────────────────────────────────────────────────────
@@ -9,6 +9,7 @@ let activePositions   = getPositions(0);
 let displayMode       = 'notes';           // 'notes' | 'intervals' | 'both'
 let selectedPositions = new Set();         // indices of active CAGED positions
 let pentaMode         = false;             // true | false
+let chordMode         = false;             // true | false
 
 const SCALE_TYPES = [
   { id: 'major', label: 'Major' },
@@ -62,10 +63,12 @@ function render() {
     }
   }
 
-  const pentaSemitones = pentaMode ? getPentaSemitones(currentKeyIndex, scaleType) : null;
-  paintNotes(allNotes, selectedKeys, selectedPosData, displayMode, pentaSemitones);
-  document.getElementById('legendPenta').style.display  = pentaMode ? '' : 'none';
-  document.getElementById('legendPenta2').style.display = pentaMode ? '' : 'none';
+  const pentaSemitones = pentaMode  ? getPentaSemitones(currentKeyIndex, scaleType) : null;
+  const chordSemitones = chordMode  ? getChordSemitones(currentKeyIndex, scaleType) : null;
+  paintNotes(allNotes, selectedKeys, selectedPosData, displayMode, pentaSemitones, chordSemitones);
+  const overlayActive = pentaMode || chordMode;
+  document.getElementById('legendPenta').style.display  = overlayActive ? '' : 'none';
+  document.getElementById('legendPenta2').style.display = overlayActive ? '' : 'none';
   updateInfoCard();
 
   document.querySelectorAll('.pos-btn').forEach((btn, i) => {
@@ -145,19 +148,35 @@ function buildDisplayButtons() {
   });
 }
 
-// ── Pentatonic overlay toggle ─────────────────────────────────────────────────
+// ── Pentatonic / Chord overlay toggles ───────────────────────────────────────
 
 function buildPentaButtons() {
   const container = document.getElementById('pentaButtons');
-  const btn = document.createElement('button');
-  btn.className = 'penta-btn';
-  btn.textContent = 'Pentatonic';
-  btn.addEventListener('click', () => {
-    pentaMode = !pentaMode;
-    btn.classList.toggle('active', pentaMode);
+
+  const chordBtn = document.createElement('button');
+  chordBtn.className = 'penta-btn';
+  chordBtn.textContent = 'Chord (1–3–5)';
+
+  const pentaBtn = document.createElement('button');
+  pentaBtn.className = 'penta-btn';
+  pentaBtn.textContent = 'Pentatonic';
+
+  chordBtn.addEventListener('click', () => {
+    chordMode = !chordMode;
+    if (chordMode) { pentaMode = false; pentaBtn.classList.remove('active'); }
+    chordBtn.classList.toggle('active', chordMode);
     render();
   });
-  container.appendChild(btn);
+
+  pentaBtn.addEventListener('click', () => {
+    pentaMode = !pentaMode;
+    if (pentaMode) { chordMode = false; chordBtn.classList.remove('active'); }
+    pentaBtn.classList.toggle('active', pentaMode);
+    render();
+  });
+
+  container.appendChild(chordBtn);
+  container.appendChild(pentaBtn);
 }
 
 // ── Position selector ─────────────────────────────────────────────────────────

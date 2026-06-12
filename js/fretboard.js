@@ -142,7 +142,7 @@ export function buildFretboard(svgEl_) {
  * @param {string}      displayMode    - 'notes' | 'intervals' | 'both'
  * @param {Set|null}    pentaSemitones - Set of semitones in the active pentatonic; null = no overlay
  */
-export function paintNotes(allNotes, selectedKeys, positions, displayMode = 'notes', pentaSemitones = null) {
+export function paintNotes(allNotes, selectedKeys, positions, displayMode = 'notes', pentaSemitones = null, chordSemitones = null) {
   // Redraw highlight boxes
   const hlGroup = document.getElementById('highlightLayer');
   hlGroup.innerHTML = '';
@@ -171,8 +171,11 @@ export function paintNotes(allNotes, selectedKeys, positions, displayMode = 'not
     const cx = fretCX(fret);
     const cy = stringCY(str);
 
-    const semi    = (STRING_OPEN_LOCAL[str - 1] + fret) % 12;
-    const isPenta = pentaSemitones !== null && pentaSemitones.has(semi);
+    const semi     = (STRING_OPEN_LOCAL[str - 1] + fret) % 12;
+    const isPenta  = pentaSemitones  !== null && pentaSemitones.has(semi);
+    const isChord  = chordSemitones  !== null && chordSemitones.has(semi);
+    const overlay  = pentaSemitones !== null || chordSemitones !== null;
+    const isActive = isPenta || isChord;
 
     if (!highlighted) {
       // Dim ghost dot — no label
@@ -185,14 +188,14 @@ export function paintNotes(allNotes, selectedKeys, positions, displayMode = 'not
       continue;
     }
 
-    // Choose colours: green for pentatonic notes, red for root, blue for others
+    // Choose colours — both penta and chord overlays share the same green scheme
     let fillColor, strokeColor;
-    if (isPenta && isRoot) {
+    if (isActive && isRoot) {
       fillColor = '#2ecc71'; strokeColor = '#ffffff';
-    } else if (isPenta) {
+    } else if (isActive) {
       fillColor = '#1a5c3a'; strokeColor = '#2ecc71';
-    } else if (pentaSemitones !== null) {
-      // non-pentatonic note — dim it when penta overlay is active
+    } else if (overlay) {
+      // note outside the active overlay — dim it
       fillColor = isRoot ? 'rgba(192,57,43,0.45)' : 'rgba(26,110,181,0.35)';
       strokeColor = isRoot ? 'rgba(231,76,60,0.6)' : 'rgba(52,152,219,0.5)';
     } else {

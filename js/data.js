@@ -199,6 +199,15 @@ export function getPositions(keyIndex) {
 }
 
 /**
+ * Return the Set of semitones (0–11) for the tonic triad (root, 3rd, 5th).
+ */
+export function getChordSemitones(keyIndex, scaleType) {
+  const root      = scaleType === 'minor' ? MINOR_KEYS[keyIndex].root : KEYS[keyIndex].root;
+  const intervals = scaleType === 'minor' ? [0, 3, 7] : [0, 4, 7];
+  return new Set(intervals.map(i => (root + i) % 12));
+}
+
+/**
  * Return the Set of semitones (0–11) belonging to the pentatonic scale
  * rooted at the given key index.
  * pentaType: 'major' | 'minor'

@@ -7,8 +7,210 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+}
+
+/* ── Top navigation ── */
+.top-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 28px;
+  height: 56px;
+  background: #13131f;
+  border-bottom: 1px solid #2a2a3e;
+  flex-shrink: 0;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.nav-tab {
+  padding: 6px 16px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-tab:hover  { background: rgba(255,255,255,.07); color: #ccc; }
+.nav-tab.active { background: rgba(245,200,66,.15);  color: #f5c842; }
+
+.wip-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #888;
+  background: #1e1e30;
+  border: 1px solid #3a3a50;
+  border-radius: 999px;
+  padding: 2px 7px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* ── Views ── */
+.view {
+  display: none;
+  flex-direction: column;
   align-items: center;
   padding: 36px 20px 60px;
+  flex: 1;
+}
+
+.view.active { display: flex; }
+
+/* ── Progressions placeholder ── */
+.wip-placeholder {
+  margin-top: 48px;
+  background: #1c1c2e;
+  border: 1px solid #2e2e44;
+  border-radius: 12px;
+  padding: 40px 48px;
+  max-width: 520px;
+  text-align: center;
+}
+
+.wip-placeholder-text {
+  color: #888;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ── Chord finder ── */
+.chord-search-wrap {
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 36px;
+}
+
+.chord-search-input {
+  width: 100%;
+  padding: 12px 18px;
+  background: #1c1c2e;
+  border: 1.5px solid #3a3a56;
+  border-radius: 10px;
+  color: #e0e0e0;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.chord-search-input::placeholder { color: #555; }
+.chord-search-input:focus { border-color: #f5c842; }
+.chord-search-input.has-suggestions {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.chord-suggestions {
+  width: 100%;
+  background: #1c1c2e;
+  border: 1.5px solid #f5c842;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+
+.suggestion-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 18px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid #2a2a3e;
+  color: #e0e0e0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+
+.suggestion-item:first-child { border-top: none; }
+.suggestion-item:hover { background: rgba(245,200,66,0.1); }
+
+.suggestion-name  { font-size: 0.95rem; font-weight: 700; }
+.suggestion-label { font-size: 0.8rem; color: #666; }
+
+.chord-results { width: 100%; max-width: 700px; }
+
+.chord-result-section { text-align: center; }
+
+.chord-result-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f5c842;
+  margin-bottom: 4px;
+}
+
+.chord-result-type {
+  font-size: 0.8rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.chord-result-notes {
+  font-size: 0.95rem;
+  color: #888;
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+}
+
+.chord-section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #555;
+  margin: 28px 0 16px;
+}
+
+.chord-cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.chord-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #1c1c2e;
+  border: 1px solid #2e2e44;
+  border-radius: 10px;
+  padding: 16px 14px 12px;
+}
+
+.chord-card-label {
+  font-size: 0.78rem;
+  color: #888;
+  letter-spacing: 0.03em;
 }
 
 h1 {

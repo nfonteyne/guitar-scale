@@ -474,8 +474,8 @@ svg#fretboard { display: block; }
 .sidebar-header  { display: none; }
 .controls-toggle { display: none; }
 
-/* ── Mobile (phones in portrait and landscape, ≤ 900px) ── */
-@media (max-width: 900px) {
+/* ── Touch devices (phones + tablets, any orientation) ── */
+@media (pointer: coarse) {
   /* Push content above the fixed bottom nav */
   body {
     padding-bottom: 64px;
@@ -693,8 +693,8 @@ svg#fretboard { display: block; }
   .sidebar-close:hover { color: #fff; background: rgba(255,255,255,.1); }
 }
 
-/* ── Tablet (901px – 1200px) ── */
-@media (min-width: 901px) and (max-width: 1200px) {
+/* ── Large touch devices in landscape (tablets ≥ 900px wide) ── */
+@media (pointer: coarse) and (min-width: 900px) and (orientation: landscape) {
   .view { padding: 28px 20px 48px; }
 
   h1 { font-size: 1.7rem; }

@@ -35,6 +35,27 @@ function subtitleText() {
   return `${name} ${scaleType === 'minor' ? 'Minor' : 'Major'} — CAGED System`;
 }
 
+function updateToggleLabel() {
+  const span = document.querySelector('.toggle-label');
+  if (!span) return;
+  const keyName    = KEYS[currentKeyIndex].name;
+  const scaleLabel = scaleType === 'minor' ? 'Minor' : 'Major';
+  let label = `${keyName} ${scaleLabel}`;
+  if (selectedPositions.size === 1) {
+    const idx = [...selectedPositions][0];
+    label += ` · ${activePositions[idx].name}`;
+  } else if (selectedPositions.size > 1) {
+    label += ` · ${selectedPositions.size} shapes`;
+  }
+  span.textContent = label;
+}
+
+function scrollToFretboard() {
+  if (window.innerWidth > 640) return;
+  document.querySelector('.fretboard-wrap')
+    ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
 // ── Render ────────────────────────────────────────────────────────────────────
 
 function render() {
@@ -93,6 +114,7 @@ function selectKey(idx) {
   document.getElementById('rootLabel').textContent = KEYS[idx].name;
   document.title = `Guitar Scale Trainer — ${subtitleText()}`;
 
+  updateToggleLabel();
   render();
 }
 
@@ -114,6 +136,7 @@ function buildScaleButtons() {
       });
       document.getElementById('subtitle').textContent = subtitleText();
       document.title = `Guitar Scale Trainer — ${subtitleText()}`;
+      updateToggleLabel();
       render();
     });
     container.appendChild(btn);
@@ -140,7 +163,9 @@ function togglePosition(idx) {
   } else {
     selectedPositions.add(idx);
   }
+  updateToggleLabel();
   render();
+  if (selectedPositions.size === 1) scrollToFretboard();
 }
 
 // ── Display mode toggle ───────────────────────────────────────────────────────
@@ -233,4 +258,5 @@ export function initScaleView() {
   buildDisplayButtons();
   buildPentaButtons();
   render();
+  updateToggleLabel();
 }

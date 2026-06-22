@@ -454,3 +454,252 @@ svg#fretboard { display: block; }
   padding: 3px 10px;
   border-radius: 999px;
 }
+
+/* ── Sidebar overlay (backdrop) ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+  z-index: 200;
+}
+.sidebar-overlay.visible { display: block; }
+
+/* ── Controls sidebar ── */
+.controls-sidebar {
+  display: contents; /* Desktop: children participate directly in .view's flow */
+}
+
+/* Hidden on desktop, shown inside the sidebar on mobile */
+.sidebar-header  { display: none; }
+.controls-toggle { display: none; }
+
+/* ── Mobile (≤ 640px) ── */
+@media (max-width: 640px) {
+  /* Push content above the fixed bottom nav */
+  body {
+    padding-bottom: 64px;
+  }
+
+  /* Move nav to the bottom for thumb reach */
+  .top-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    height: 64px;
+    padding: 0 4px;
+    border-bottom: none;
+    border-top: 1px solid #2a2a3e;
+    gap: 0;
+    justify-content: space-around;
+    z-index: 100;
+  }
+
+  .nav-brand { display: none; }
+
+  .nav-tabs {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .nav-tab {
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px 4px;
+    font-size: 0.72rem;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    min-height: 52px;
+  }
+
+  .wip-badge {
+    font-size: 0.55rem;
+    padding: 1px 5px;
+  }
+
+  /* View: less top padding, no huge bottom gap */
+  .view {
+    padding: 20px 12px 20px;
+  }
+
+  /* Heading scale-down */
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+
+  /* Key buttons — 44px minimum touch target */
+  .key-buttons { gap: 5px; margin-bottom: 12px; }
+  .key-btn {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Scale type toggle */
+  .scale-buttons { margin-bottom: 14px; }
+  .scale-btn {
+    padding: 11px 22px;
+    font-size: 0.82rem;
+    min-height: 44px;
+  }
+
+  /* Position buttons */
+  .position-buttons { gap: 8px; margin-bottom: 20px; }
+  .pos-btn {
+    padding: 11px 16px;
+    font-size: 0.82rem;
+    min-height: 44px;
+  }
+
+  /* Display mode toggle */
+  .display-buttons { gap: 5px; margin-bottom: 12px; }
+  .display-btn {
+    padding: 10px 12px;
+    font-size: 0.78rem;
+    min-height: 44px;
+  }
+
+  /* Pentatonic toggle */
+  .penta-buttons { gap: 8px; margin-bottom: 14px; }
+  .penta-btn {
+    padding: 10px 14px;
+    font-size: 0.8rem;
+    min-height: 44px;
+  }
+
+  /* Fretboard — tighter padding so it gets maximum width */
+  .fretboard-wrap {
+    padding: 12px 8px;
+    border-radius: 10px;
+  }
+
+  /* Legend */
+  .legend {
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .legend-item { font-size: 0.78rem; }
+  .legend-dot  { width: 16px; height: 16px; }
+
+  /* Position info card */
+  .pos-info {
+    padding: 14px 14px;
+    margin-top: 18px;
+  }
+  .pos-info h2 { font-size: 1rem; }
+  .pos-info p  { font-size: 0.85rem; }
+
+  /* Chord view */
+  .chord-search-wrap { margin-bottom: 24px; }
+  .chord-search-input { padding: 14px 14px; }
+
+  .suggestion-item {
+    padding: 12px 14px;
+    min-height: 44px;
+  }
+
+  .chord-cards { gap: 12px; }
+
+  /* WIP placeholder */
+  .wip-placeholder {
+    padding: 24px 18px;
+    margin-top: 20px;
+  }
+
+  /* Hide the desktop title on mobile — subtitle already shows key + scale */
+  h1 { display: none; }
+
+  /* Controls toggle button */
+  .controls-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    padding: 10px 16px;
+    margin-bottom: 14px;
+    background: #1c1c2e;
+    border: 1.5px solid #3a3a56;
+    border-radius: 8px;
+    color: #ccc;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .controls-toggle:hover { border-color: #f5c842; color: #f5c842; }
+
+  /* Slide-in sidebar panel */
+  .controls-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 64px; /* clear the bottom nav */
+    width: 280px;
+    background: #13131f;
+    border-right: 1px solid #2a2a3e;
+    padding: 16px 16px 28px;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+    z-index: 300;
+  }
+  .controls-sidebar.open { transform: translateX(0); }
+
+  /* Sidebar header row */
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #f5c842;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .sidebar-close {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    line-height: 1;
+    font-family: inherit;
+    transition: color 0.15s, background 0.15s;
+  }
+  .sidebar-close:hover { color: #fff; background: rgba(255,255,255,.1); }
+}
+
+/* ── Tablet (641px – 900px) ── */
+@media (min-width: 641px) and (max-width: 900px) {
+  .view { padding: 28px 20px 48px; }
+
+  h1 { font-size: 1.7rem; }
+
+  .key-btn   { min-height: 40px; padding: 8px 12px; }
+  .scale-btn { min-height: 40px; }
+  .pos-btn   { min-height: 40px; }
+}

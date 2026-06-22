@@ -19,4 +19,6 @@ export function initSidebar() {
   toggle?.addEventListener('click', openSidebar);
   close?.addEventListener('click', closeSidebar);
   overlay?.addEventListener('click', closeSidebar);
+
+  window.addEventListener('orientationchange', closeSidebar);
 }

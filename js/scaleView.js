@@ -51,7 +51,7 @@ function updateToggleLabel() {
 }
 
 function scrollToFretboard() {
-  if (window.innerWidth > 640) return;
+  if (!window.matchMedia('(max-width: 900px)').matches) return;
   document.querySelector('.fretboard-wrap')
     ?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }

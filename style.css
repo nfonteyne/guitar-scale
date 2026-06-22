@@ -474,8 +474,8 @@ svg#fretboard { display: block; }
 .sidebar-header  { display: none; }
 .controls-toggle { display: none; }
 
-/* ── Mobile (≤ 640px) ── */
-@media (max-width: 640px) {
+/* ── Mobile (phones in portrait and landscape, ≤ 900px) ── */
+@media (max-width: 900px) {
   /* Push content above the fixed bottom nav */
   body {
     padding-bottom: 64px;
@@ -693,8 +693,8 @@ svg#fretboard { display: block; }
   .sidebar-close:hover { color: #fff; background: rgba(255,255,255,.1); }
 }
 
-/* ── Tablet (641px – 900px) ── */
-@media (min-width: 641px) and (max-width: 900px) {
+/* ── Tablet (901px – 1200px) ── */
+@media (min-width: 901px) and (max-width: 1200px) {
   .view { padding: 28px 20px 48px; }
 
   h1 { font-size: 1.7rem; }
